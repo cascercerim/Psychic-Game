@@ -6,27 +6,37 @@
 //When playere wins add to score card 
 //When player loses subtract one form score card
 
+
+//letters user can type for game 
 var computersChoice = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v',
 'w','x','y','z'];
 
+//Setting scorecard
 var wins = 0;
 var losses = 0;
 var guesses = 9; 
 var userGuesses = "";
 var computerGuess = "";
-var tie = 0;
 
+//Random number/letter generator for game to choose letter
 computerGuess = computersChoice[Math.floor(Math.random() * computersChoice.length)];
 
+//Linking variables to elements
 var userChoices = document.getElementById("userchoice-button");
-var computerChoice = document.getElementById("computerchoice-button");
 var guessSoFar = document.getElementById("guesses");
 var winnerAlert = document.getElementById("winner");
 var loserAlert = document.getElementById("loser");
-var tieAlert = document.getElementById("tie");
 
+
+//Function for when user presses certain key it will run the below functions
 document.onkeypress = function(event) {
     var userGuess = event.key;
+    var resetGuesses = function () {
+        guesses = 9; 
+        userGuesses = "";
+        document.querySelector("#guesses").innerHTML = ''; // reset our view
+      }
+    
 
     userGuesses += userGuess + ", ";
     guesses--;
@@ -34,24 +44,30 @@ document.onkeypress = function(event) {
     if(userGuess === computerGuess){
         wins++;   
      guesses===0;
+     resetGuesses();
 
     } else if(guesses===0) {
         losses++;
+        resetGuesses();
     }
-    // else{
-    //     guesses--;
-    // }
-    // if(guesses === 0){
-    //     loses++
-    // }
- 
-    // pushButton.textContent = " "; 
-    userChoices.textContent = "You chose: " + userGuesses;
-    computerChoice.textContent = "The computer chose: " + computerGuess;
-    winnerAlert.textContent = "wins: " + wins;
-    guessSoFar.textContent = "guesses: "  + guesses;
-    loserAlert.textContent = "loser: " + losses;
-    // tiesAlert.textContent = "tie: " + tie;
+   
+    // var resetGuesses = function () {
+    //     guesses = 9; // reset our model
+    //     document.querySelector("#guesses").innerHTML = ''; // reset our view
+    //   }
+    //   if (userGuess === computerGuess) {
+    //     wins++;
+   
+    //   }
+    //   else if (guesses === 0) {
+    //     losses++;
+   
+    //   }
+    userChoices.textContent = "Guesses I chose: " + userGuesses;
+    winnerAlert.textContent = "Wins: " + wins;
+    guessSoFar.textContent = "Guesses left: "  + guesses;
+    loserAlert.textContent = "Losses: " + losses;
+
   }
 
 
